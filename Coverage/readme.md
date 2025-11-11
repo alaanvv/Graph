@@ -1,4 +1,4 @@
-# Implementação do algoritmo de Dijkstra
+# Implementação do algoritmo de 
 
 Aluno: **Alan Vale**  
 
@@ -18,13 +18,6 @@ A entrada e feita por um arquivo `graph.ncol`, no formato
 NCOL, com cada linha descrevendo uma aresta no seguinte formato:  
 `origem destino peso`  
   
-Ao executar, o programa também requer uma entrada do usuário que  
-é o índice do vértice que vai ser tratado como origem.  
-  
-Essa implementação não funcionaria se um vértice tiver uma distância  
-de 0 pra outro, eu poderia fazer uma pequena gambiarra pra fazer funcionar  
-mas não sei se isso sequer faz sentido.  
-
 ## Entrada e saída esperada
 
 Usando o arquivo `graph.ncol` com conteúdo:
