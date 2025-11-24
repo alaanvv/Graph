@@ -1,7 +1,6 @@
 #ifndef ACO_H
 #define ACO_H
 
-#include "graph.h"
 #include "mat.h"
 #include "tour.h"
 #include "vec.h"
@@ -12,24 +11,22 @@
 
 // Estrutura principal que contem todos os dados e parametros do algoritmo ACO
 typedef struct {
-    // Parametros do algoritmo
-    int num_ants;     // Numero de formigas
-    int iterations;   // Numero de iteracoes
+    int num_ants;      // Numero de formigas
+    int iterations;    // Numero de iteracoes
     double alpha;      // Fator de importancia do feromonio
     double beta;       // Fator de importancia da distancia (heuristica)
     double rho;        // Taxa de evaporacao do feromonio
     double Q;          // Fator de deposito de feromonio
     double tau;        // Valor inicial do feromonio
 
-    // Dados do problema
-    Graph* g;         // Grafo com as cidades e distancias
-    Tour* best;       // Melhor caminho encontrado ate agora
-    Matrix* pher;     // Matriz de feromonio
-    Matrix* delta;    // Matriz para acumular o deposito de feromonio da iteracao
+    Matrix* g;         // Grafo com as cidades e distancias
+    Tour* best;        // Melhor caminho encontrado ate agora
+    Matrix* pher;      // Matriz de feromonio
+    Matrix* delta;     // Matriz para acumular o deposito de feromonio da iteracao
 } ACO;
 
 // Construtor: aloca e inicializa uma nova estrutura ACO
-static inline ACO* aco_new(Graph* g, int num_ants, int iterations, double alpha, double beta, double rho, double Q, double tau) {
+static inline ACO* aco_new(Matrix* g, int num_ants, int iterations, double alpha, double beta, double rho, double Q, double tau) {
     ACO* aco = (ACO*)malloc(sizeof(ACO));
     aco->num_ants = num_ants;
     aco->iterations = iterations;
@@ -68,9 +65,9 @@ static inline void aco_calculate_probabilities(ACO* aco, Tour* t, int current, d
     vec_fill(probs, aco->g->size, 0);
     // Para cada cidade vizinha, calcula a probabilidade baseada no feromonio e na distancia
     for (int j = 0; j < aco->g->size; j++) {
-        if (!tour_has(t, j) && graph_has(aco->g, current, j)) {
+        if (!tour_has(t, j) && aco->g->m[current][j] != 0) {
             probs[j] = pow(aco->pher->m[current][j], aco->alpha) *
-                       pow(1.0 / graph_get(aco->g, current, j), aco->beta);
+                       pow(1.0 / aco->g->m[current][j], aco->beta);
         }
     }
 }
@@ -149,7 +146,7 @@ static inline void aco_update_pher(ACO *aco) {
 }
 
 // Executa o algoritmo da colonia de formigas
-static inline Tour *aco_run(Graph *g, int num_ants, int iterations, double alpha, double beta, double rho, double Q, double tau) {
+static inline Tour *aco_run(Matrix *g, int num_ants, int iterations, double alpha, double beta, double rho, double Q, double tau) {
   ACO* aco = aco_new(g, num_ants, iterations, alpha, beta, rho, Q, tau);
 
   // Roda as iteracoes do algoritmo

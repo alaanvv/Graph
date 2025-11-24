@@ -1,7 +1,7 @@
 #include <time.h>
 #include "aco.h"
 #include "tour.h"
-#include "graph.h"
+#include "mat.h"
 
 #define ITERATIONS 200 // Numero de iteracoes
 #define NUM_ANTS 15    // Numero de formigas
@@ -14,7 +14,7 @@
 int main() {
   srand(time(0));
 
-  Graph *graph = graph_new("graph.txt", 15);
+  Matrix *graph = mat_new_from_file("graph.txt", 15);
 
   Tour *best = aco_run(graph, NUM_ANTS, ITERATIONS, ALPHA, BETA, RHO, Q, TAU);
 
@@ -27,7 +27,7 @@ int main() {
     printf(" -> %d (Tamanho %d)\n", best->nodes[0], best->length);
   }
 
-  graph_free(graph);
+  mat_free(graph);
   tour_free(best);
   return 0;
 }

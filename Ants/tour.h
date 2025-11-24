@@ -1,7 +1,7 @@
 #ifndef TOUR_H
 #define TOUR_H
 
-#include "graph.h"
+#include "mat.h"
 
 // Representa um caminho
 typedef struct {
@@ -24,15 +24,15 @@ static inline void tour_free(Tour *t) {
 }
 
 // Adiciona um no ao tour e atualiza o comprimento total baseado na aresta do grafo g
-static inline void tour_add(Tour *t, int node, Graph *g) {
+static inline void tour_add(Tour *t, int node, Matrix *g) {
   t->nodes[t->count++] = node;
-  if (t->count > 1) t->length += graph_get((Graph *)g, t->nodes[t->count - 2], node);
+  if (t->count > 1) t->length += g->m[t->nodes[t->count - 2]][node];
 }
 
 // Fecha o tour, adicionando o tamanho da aresta de volta ao no inicial
-static inline int tour_end(Tour *t, Graph *g) {
+static inline int tour_end(Tour *t, Matrix *g) {
   if (t->count <= 1) return 0;
-  t->length += graph_get((Graph *)g, t->nodes[t->count - 1], t->nodes[0]);
+  t->length += g->m[t->nodes[t->count - 1]][t->nodes[0]];
   return t->length;
 }
 
