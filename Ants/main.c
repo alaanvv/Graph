@@ -17,6 +17,7 @@ int main() {
   Matrix *graph = mat_new_from_file("graph.txt", 15);
 
   Tour *best = aco_run(graph, NUM_ANTS, ITERATIONS, ALPHA, BETA, RHO, Q, TAU);
+  tour_rotate_to_zero(best);
 
   if (best->length == INT_MAX)
     printf("Nenhum caminho encontrado\n");

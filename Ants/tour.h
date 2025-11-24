@@ -59,4 +59,13 @@ static inline int tour_has(Tour *t, int node) {
   return 0;
 }
 
+// Rotaciona um tour de forma que inicie no zero
+static inline void tour_rotate_to_zero(Tour* t) {
+  while (t->nodes[0] != 0) {
+    int first = t->nodes[0];
+    for (int i = 0; i < t->count - 1; i++) t->nodes[i] = t->nodes[i + 1];
+    t->nodes[t->count - 1] = first;
+  }
+}
+
 #endif
