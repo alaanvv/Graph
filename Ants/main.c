@@ -24,8 +24,8 @@ int main() {
   else {
     printf("Melhor caminho:\n");
     for (int i = 0; i < best->count; i++)
-      printf("%s%d", i ? " -> " : "", best->nodes[i]);
-    printf(" -> %d (Tamanho %d)\n", best->nodes[0], best->length);
+      printf("%s%d", i ? " -> " : "", best->nodes[i] + 1);
+    printf(" -> %d (Tamanho %d)\n", best->nodes[0] + 1, best->length);
   }
 
   mat_free(graph);
