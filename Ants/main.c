@@ -1,31 +1,32 @@
-#include <stdlib.h>
 #include <time.h>
-#include "graph.h"
-#include "tour.h"
 #include "aco.h"
+#include "tour.h"
+#include "graph.h"
 
-#define ALPHA 1
-#define BETA 5
-#define RHO 0.5
-#define Q 100.0
-#define TAU 1e-15
-#define ITERATIONS 200
+#define ITERATIONS 200 // Numero de iteracoes
+#define NUM_ANTS 15    // Numero de formigas
+#define ALPHA 1        // Importancia do feromonio
+#define BETA 5         // Importancia da distancia
+#define RHO 0.5        // Taxa de evaporacao do feromonio
+#define Q 100.0        // Taxa de deposito de feromonio
+#define TAU 1e-15      // Valor inicial do feromonio
 
 int main() {
   srand(time(0));
 
-  Graph* graph = graph_new("graph.txt", 15);
-  Tour* best = aco_run(graph);
+  Graph *graph = graph_new("graph.txt", 15);
 
-  if (best->length == INT_MAX) printf("Nenhum caminho encontrado\n");
+  Tour *best = aco_run(graph, NUM_ANTS, ITERATIONS, ALPHA, BETA, RHO, Q, TAU);
+
+  if (best->length == INT_MAX)
+    printf("Nenhum caminho encontrado\n");
   else {
-    printf("Melhor caminho: %d\n", best->length);
+    printf("Melhor caminho:\n");
     for (int i = 0; i < best->count; i++)
       printf("%s%d", i ? " -> " : "", best->nodes[i]);
-    printf(" -> %d\n", best->nodes[0]);
+    printf(" -> %d (Tamanho %d)\n", best->nodes[0], best->length);
   }
 
-  printf("%d\n", graph->size);
   graph_free(graph);
   tour_free(best);
   return 0;
