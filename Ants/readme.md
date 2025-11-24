@@ -7,7 +7,7 @@ Aluno: **Alan Vale**
 ## Como executar
 
 1. Compile o código  
-`gcc main.c -lm`  
+`gcc src/main.c -lm`  
   
 2. Rode o executável  
 `./a.out`  
