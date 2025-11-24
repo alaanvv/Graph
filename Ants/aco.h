@@ -124,7 +124,8 @@ static inline void aco_deposit(ACO *aco, Tour *t) {
     int b = t->nodes[i + 1];
 
     // Feromonio inversamente proporcional ao comprimento do caminho
-    double v = aco->delta->m[a][b] + aco->Q / t->length;
+    double fitness = 1.0 / t->length;
+    double v = aco->delta->m[a][b] + aco->Q * fitness;
     aco->delta->m[a][b] = v;
     aco->delta->m[b][a] = v;
   }
