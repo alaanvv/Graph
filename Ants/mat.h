@@ -11,7 +11,7 @@ typedef struct {
   int size;
 } Matrix;
 
-static inline Matrix *mat_new_from_file(const char *path, int n) {
+static inline Matrix *mat_new_from_file(char *path, int n) {
   Matrix *g = (Matrix *)malloc(sizeof(Matrix));
   g->size = n;
 
