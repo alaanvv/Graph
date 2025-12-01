@@ -22,10 +22,10 @@ int main() {
   if (best->length == INT_MAX)
     printf("Nenhum caminho encontrado\n");
   else {
-    printf("Melhor caminho:\n");
+    printf("Melhor caminho (Tamanho %d)\n", best->length);
     for (int i = 0; i < best->count; i++)
       printf("%s%d", i ? " -> " : "", best->nodes[i] + 1);
-    printf(" -> %d (Tamanho %d)\n", best->nodes[0] + 1, best->length);
+    printf(" -> %d\n", best->nodes[0] + 1);
   }
 
   mat_free(graph);
