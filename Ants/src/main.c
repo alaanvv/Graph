@@ -5,9 +5,9 @@
 
 #define ITERATIONS 200 // Numero de iteracoes
 #define NUM_ANTS 15    // Numero de formigas
-#define ALPHA 1        // Importancia do feromonio
-#define BETA 5         // Importancia da distancia
-#define RHO 0.5        // Taxa de evaporacao do feromonio
+#define ALPHA 0.1      // Importancia do feromonio
+#define BETA 10.0      // Importancia da distancia
+#define RHO 0.1        // Taxa de evaporacao do feromonio
 #define Q 100.0        // Taxa de deposito de feromonio
 #define TAU 1e-15      // Valor inicial do feromonio
 
